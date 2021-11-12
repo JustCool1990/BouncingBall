@@ -24,16 +24,6 @@ public class ExitGameScreen : Screen
         _exitGameButton.onClick.RemoveListener(ExitGame);
     }
 
-    private void BackMainMenuScreen()
-    {
-        ResumeButtonClick?.Invoke();
-    }
-
-    private void ExitGame()
-    {
-        ExitGameButtonClick?.Invoke();
-    }
-
     public override void Close()
     {
         CanvasGroup.alpha = 0;
@@ -44,5 +34,15 @@ public class ExitGameScreen : Screen
     public override void Open()
     {
         StartCoroutine(ChangeScreenAlpha());
+    }
+
+    private void BackMainMenuScreen()
+    {
+        ResumeButtonClick?.Invoke();
+    }
+
+    private void ExitGame()
+    {
+        ExitGameButtonClick?.Invoke();
     }
 }

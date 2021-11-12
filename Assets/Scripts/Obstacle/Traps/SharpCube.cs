@@ -25,6 +25,25 @@ public class SharpCube : Obstacle
         base.OnDisable();
     }
 
+    public void ActivateTrap()
+    {
+        Coroutine = ChangePosition(TargetPosition);
+        StartCoroutine(Coroutine);
+    }
+
+    protected override void ActivateTrapHintAnimation()
+    {
+        IsActivated = true;
+        _animator.SetTrigger(AnimatorTrapController.States.Activate);
+    }
+
+    protected override void SetObstacleParametres()
+    {
+        IdleTime = Random.Range(MinIdleTime, MaxIdleTime);
+        TargetPosition = _cube.transform.localPosition == StartPosition ? _upperPosition : StartPosition;
+        IsActivated = false;
+    }
+
     private void CheckLocalScale()
     {
         if (_cube.transform.localScale != Vector3.one)
@@ -43,24 +62,5 @@ public class SharpCube : Obstacle
 
         SetObstacleParametres();
         CoroutineIsActive = false;
-    }
-
-    protected override void ActivateTrapHintAnimation()
-    {
-        IsActivated = true;
-        _animator.SetTrigger(AnimatorTrapController.States.Activate);
-    }
-
-    public void ActivateTrap()
-    {
-        Coroutine = ChangePosition(TargetPosition);
-        StartCoroutine(Coroutine);
-    }
-
-    protected override void SetObstacleParametres()
-    {
-        IdleTime = Random.Range(MinIdleTime, MaxIdleTime);
-        TargetPosition = _cube.transform.localPosition == StartPosition ? _upperPosition : StartPosition;
-        IsActivated = false;
     }
 }

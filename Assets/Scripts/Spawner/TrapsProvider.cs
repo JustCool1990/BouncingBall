@@ -48,24 +48,6 @@ public class TrapsProvider : MonoBehaviour
         _roadGenerator.ChooseColorPlatformShowed -= OnChooseColorPlatformSpawned;
     }
 
-    private void OnGameBegin()
-    {
-        foreach (var trap in _pool)
-        {
-            if (CheckActiveTrap(trap))
-            {
-                DisableObject(trap);
-            }
-        }
-
-        ShuffleTrapsPool();
-    }
-
-    private void OnChooseColorPlatformSpawned()
-    {
-        ShuffleTrapsPool();
-    }
-
     public bool TryGetObject(out Obstacle result)
     {
         result = _pool.FirstOrDefault(p => p.gameObject.activeSelf == false);
@@ -84,6 +66,24 @@ public class TrapsProvider : MonoBehaviour
                 DisableObject(trap, disablePoint);
             }
         }
+    }
+
+    private void OnGameBegin()
+    {
+        foreach (var trap in _pool)
+        {
+            if (CheckActiveTrap(trap))
+            {
+                DisableObject(trap);
+            }
+        }
+
+        ShuffleTrapsPool();
+    }
+
+    private void OnChooseColorPlatformSpawned()
+    {
+        ShuffleTrapsPool();
     }
 
     private bool CheckActiveTrap(Obstacle obstacle)

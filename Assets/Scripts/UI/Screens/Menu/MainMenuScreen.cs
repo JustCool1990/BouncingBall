@@ -28,6 +28,18 @@ public class MainMenuScreen : Screen
         _exitGameButton.onClick.RemoveListener(ExitGame);
     }
 
+    public override void Close()
+    {
+        CanvasGroup.alpha = 0;
+        CanvasGroup.interactable = false;
+        CanvasGroup.blocksRaycasts = false;
+    }
+
+    public override void Open()
+    {
+        StartCoroutine(ChangeScreenAlpha());
+    }
+
     private void StartGame()
     {
         StartGameButtonClick?.Invoke();
@@ -41,17 +53,5 @@ public class MainMenuScreen : Screen
     private void ExitGame()
     {
         ExitScreenButtonClick?.Invoke();
-    }
-
-    public override void Close()
-    {
-        CanvasGroup.alpha = 0;
-        CanvasGroup.interactable = false;
-        CanvasGroup.blocksRaycasts = false;
-    }
-
-    public override void Open()
-    {
-        StartCoroutine(ChangeScreenAlpha());
     }
 }

@@ -47,12 +47,39 @@ public class Flagpole : Obstacle
         _openFlagCounter = 0;
     }
 
+    protected override void ActivateTrapHintAnimation()
+    {
+        if (_openFlagCounter == 0)
+        {
+            _openFlagCounter++;
+            _openFlagIndex = Random.Range(0, _flagsTransform.Length);
+
+            IsActivated = true;
+            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
+        }
+        else
+        {
+            IsActivated = true;
+            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
+
+            _openFlagIndex = ChooseSecondObstacle(_openFlagIndex);
+
+            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
+        }
+    }
+
+    protected override void SetObstacleParametres()
+    {
+        IdleTime = Random.Range(MinIdleTime, MaxIdleTime);
+        IsActivated = false;
+    }
+
     private void CheckFlagsRotation(Flag flag)
     {
         if (flag.transform.localRotation != _startRotation)
             flag.ResetRotation(_startRotation);
     }
-    
+
     private void CheckFlagsLocalScale(Flag flag)
     {
         if (flag.transform.localScale != Vector3.one)
@@ -98,32 +125,5 @@ public class Flagpole : Obstacle
             case 2:
                 return Random.Range(0, index);
         }
-    }
-
-    protected override void ActivateTrapHintAnimation()
-    {
-        if (_openFlagCounter == 0)
-        {
-            _openFlagCounter++;
-            _openFlagIndex = Random.Range(0, _flagsTransform.Length);
-
-            IsActivated = true;
-            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
-        }
-        else
-        {
-            IsActivated = true;
-            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
-
-            _openFlagIndex = ChooseSecondObstacle(_openFlagIndex);
-
-            _flagsAnimators[_openFlagIndex].SetTrigger(AnimatorTrapController.States.Activate);
-        }
-    }
-
-    protected override void SetObstacleParametres()
-    {
-        IdleTime = Random.Range(MinIdleTime, MaxIdleTime);
-        IsActivated = false;
     }
 }

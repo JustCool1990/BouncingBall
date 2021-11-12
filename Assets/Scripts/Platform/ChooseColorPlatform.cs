@@ -31,6 +31,14 @@ public class ChooseColorPlatform : Platform
         RoadGenerator.ChooseColorPlatformHided -= OnChooseColorPlatformHided;
     }
 
+    public void SetCirclesColorAtributes()
+    {
+        for (int i = 0; i < _colorCubes.Length; i++)
+        {
+            _colorCubes[i].SetColorAtribute(_colorAtributes[i]);
+        }
+    }
+
     private void OnColorChanged()
     {
         SetActiveCircles(false);
@@ -48,14 +56,6 @@ public class ChooseColorPlatform : Platform
     {
         SetActiveCircles(true);
         SetCirclesColorAtributes();
-    }
-
-    public void SetCirclesColorAtributes()
-    {
-        for (int i = 0; i < _colorCubes.Length; i++)
-        {
-            _colorCubes[i].SetColorAtribute(_colorAtributes[i]);
-        }
     }
 
     private void OnChooseColorPlatformHided()

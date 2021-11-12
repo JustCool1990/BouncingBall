@@ -30,12 +30,6 @@ public class AutorsScreen : Screen
         _backPreviousScreenButton.onClick.RemoveListener(BackMainMenuScreen);
     }
 
-    private void BackMainMenuScreen()
-    {
-        Close();
-        BackMainMenuScreenButtonClick?.Invoke();
-    }
-
     public override void Close()
     {
         _animator.SetTrigger(AnimatorScreenController.States.Disappear);
@@ -49,5 +43,11 @@ public class AutorsScreen : Screen
     public void TriggerOpenEvent()
     {
         Opened?.Invoke();
+    }
+
+    private void BackMainMenuScreen()
+    {
+        Close();
+        BackMainMenuScreenButtonClick?.Invoke();
     }
 }
